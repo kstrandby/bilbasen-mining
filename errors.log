@@ -1,0 +1,88 @@
+[20/Nov/2014:19:50:43] ENGINE Listening for SIGHUP.
+[20/Nov/2014:19:50:43] ENGINE Listening for SIGTERM.
+[20/Nov/2014:19:50:43] ENGINE Listening for SIGUSR1.
+[20/Nov/2014:19:50:43] ENGINE Bus STARTING
+[20/Nov/2014:19:50:43] ENGINE Started monitor thread 'Autoreloader'.
+[20/Nov/2014:19:50:43] ENGINE Started monitor thread '_TimeoutMonitor'.
+[20/Nov/2014:19:50:43] ENGINE Serving on http://127.0.0.1:8888
+[20/Nov/2014:19:50:43] ENGINE Bus STARTED
+[20/Nov/2014:19:50:58] ENGINE Keyboard Interrupt: shutting down bus
+[20/Nov/2014:19:50:58] ENGINE Bus STOPPING
+[20/Nov/2014:19:50:58] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('127.0.0.1', 8888)) shut down
+[20/Nov/2014:19:50:58] ENGINE Stopped thread '_TimeoutMonitor'.
+[20/Nov/2014:19:50:58] ENGINE Stopped thread 'Autoreloader'.
+[20/Nov/2014:19:50:58] ENGINE Bus STOPPED
+[20/Nov/2014:19:50:58] ENGINE Bus EXITING
+[20/Nov/2014:19:50:58] ENGINE Bus EXITED
+[20/Nov/2014:19:50:58] ENGINE Waiting for child threads to terminate...
+[20/Nov/2014:19:51:43] ENGINE Listening for SIGHUP.
+[20/Nov/2014:19:51:43] ENGINE Listening for SIGTERM.
+[20/Nov/2014:19:51:43] ENGINE Listening for SIGUSR1.
+[20/Nov/2014:19:51:43] ENGINE Bus STARTING
+[20/Nov/2014:19:51:43] ENGINE Started monitor thread 'Autoreloader'.
+[20/Nov/2014:19:51:43] ENGINE Started monitor thread '_TimeoutMonitor'.
+[20/Nov/2014:19:51:43] ENGINE Serving on http://127.0.0.1:8888
+[20/Nov/2014:19:51:43] ENGINE Bus STARTED
+[20/Nov/2014:19:53:12] ENGINE Restarting because /home/kristine/Dropbox/python/BilbasenDataMining/datamining.py changed.
+[20/Nov/2014:19:53:12] ENGINE Stopped thread 'Autoreloader'.
+[20/Nov/2014:19:53:12] ENGINE Bus STOPPING
+[20/Nov/2014:19:53:12] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('127.0.0.1', 8888)) shut down
+[20/Nov/2014:19:53:12] ENGINE Stopped thread '_TimeoutMonitor'.
+[20/Nov/2014:19:53:12] ENGINE Bus STOPPED
+[20/Nov/2014:19:53:12] ENGINE Bus EXITING
+[20/Nov/2014:19:53:12] ENGINE Bus EXITED
+[20/Nov/2014:19:53:12] ENGINE Waiting for child threads to terminate...
+[20/Nov/2014:19:53:12] ENGINE Re-spawning main.py
+[20/Nov/2014:19:53:14] ENGINE Listening for SIGHUP.
+[20/Nov/2014:19:53:14] ENGINE Listening for SIGTERM.
+[20/Nov/2014:19:53:14] ENGINE Listening for SIGUSR1.
+[20/Nov/2014:19:53:14] ENGINE Bus STARTING
+[20/Nov/2014:19:53:14] ENGINE Started monitor thread 'Autoreloader'.
+[20/Nov/2014:19:53:14] ENGINE Started monitor thread '_TimeoutMonitor'.
+[20/Nov/2014:19:53:14] ENGINE Serving on http://127.0.0.1:8888
+[20/Nov/2014:19:53:14] ENGINE Bus STARTED
+[20/Nov/2014:19:53:27] ENGINE Restarting because /home/kristine/Dropbox/python/BilbasenDataMining/datamining.py changed.
+[20/Nov/2014:19:53:27] ENGINE Stopped thread 'Autoreloader'.
+[20/Nov/2014:19:53:27] ENGINE Bus STOPPING
+[20/Nov/2014:19:53:27] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('127.0.0.1', 8888)) shut down
+[20/Nov/2014:19:53:27] ENGINE Stopped thread '_TimeoutMonitor'.
+[20/Nov/2014:19:53:27] ENGINE Bus STOPPED
+[20/Nov/2014:19:53:27] ENGINE Bus EXITING
+[20/Nov/2014:19:53:27] ENGINE Bus EXITED
+[20/Nov/2014:19:53:27] ENGINE Waiting for child threads to terminate...
+[20/Nov/2014:19:53:27] ENGINE Re-spawning main.py
+[20/Nov/2014:19:53:28] ENGINE Listening for SIGHUP.
+[20/Nov/2014:19:53:28] ENGINE Listening for SIGTERM.
+[20/Nov/2014:19:53:28] ENGINE Listening for SIGUSR1.
+[20/Nov/2014:19:53:28] ENGINE Bus STARTING
+[20/Nov/2014:19:53:28] ENGINE Started monitor thread 'Autoreloader'.
+[20/Nov/2014:19:53:28] ENGINE Started monitor thread '_TimeoutMonitor'.
+[20/Nov/2014:19:53:29] ENGINE Serving on http://127.0.0.1:8888
+[20/Nov/2014:19:53:29] ENGINE Bus STARTED
+[20/Nov/2014:19:54:15] ENGINE Restarting because /home/kristine/Dropbox/python/BilbasenDataMining/datamining.py changed.
+[20/Nov/2014:19:54:15] ENGINE Stopped thread 'Autoreloader'.
+[20/Nov/2014:19:54:15] ENGINE Bus STOPPING
+[20/Nov/2014:19:54:15] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('127.0.0.1', 8888)) shut down
+[20/Nov/2014:19:54:15] ENGINE Stopped thread '_TimeoutMonitor'.
+[20/Nov/2014:19:54:15] ENGINE Bus STOPPED
+[20/Nov/2014:19:54:15] ENGINE Bus EXITING
+[20/Nov/2014:19:54:15] ENGINE Bus EXITED
+[20/Nov/2014:19:54:15] ENGINE Waiting for child threads to terminate...
+[20/Nov/2014:19:54:15] ENGINE Re-spawning main.py
+[20/Nov/2014:19:54:16] ENGINE Listening for SIGHUP.
+[20/Nov/2014:19:54:16] ENGINE Listening for SIGTERM.
+[20/Nov/2014:19:54:16] ENGINE Listening for SIGUSR1.
+[20/Nov/2014:19:54:16] ENGINE Bus STARTING
+[20/Nov/2014:19:54:16] ENGINE Started monitor thread 'Autoreloader'.
+[20/Nov/2014:19:54:16] ENGINE Started monitor thread '_TimeoutMonitor'.
+[20/Nov/2014:19:54:16] ENGINE Serving on http://127.0.0.1:8888
+[20/Nov/2014:19:54:16] ENGINE Bus STARTED
+[20/Nov/2014:19:54:28] ENGINE Keyboard Interrupt: shutting down bus
+[20/Nov/2014:19:54:28] ENGINE Bus STOPPING
+[20/Nov/2014:19:54:28] ENGINE HTTP Server cherrypy._cpwsgi_server.CPWSGIServer(('127.0.0.1', 8888)) shut down
+[20/Nov/2014:19:54:28] ENGINE Stopped thread '_TimeoutMonitor'.
+[20/Nov/2014:19:54:28] ENGINE Stopped thread 'Autoreloader'.
+[20/Nov/2014:19:54:28] ENGINE Bus STOPPED
+[20/Nov/2014:19:54:28] ENGINE Bus EXITING
+[20/Nov/2014:19:54:28] ENGINE Bus EXITED
+[20/Nov/2014:19:54:28] ENGINE Waiting for child threads to terminate...

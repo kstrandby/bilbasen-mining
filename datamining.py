@@ -8,6 +8,7 @@ import re
 import nltk
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.cluster.vq import kmeans,vq
 import itertools
 import bilbasen, database
 
@@ -185,7 +186,7 @@ def calculateBestOffer(table, model):
 	else: query += ";"
 
 	result = pandas.read_sql_query(query, con)
-	print result
+	
 	data = []
 	for index, car in result.iterrows():
 		rank = analyzeDescription(car.Description)
@@ -194,34 +195,13 @@ def calculateBestOffer(table, model):
 	
 	# convert to numpy array
 	data = np.array(data)
-	print data
-
-
-	
-	
-	
-	from pylab import plot,show
-	from numpy import vstack,array
-	from numpy.random import rand
-	from scipy.cluster.vq import kmeans,vq
-
-
 
 	# computing K-Means with K = 2 (2 clusters)
-	centroids,_ = kmeans(data,1)
+	centroid,_ = kmeans(data,1)
 	# assign each sample to a cluster
-	idx,_ = vq(data,centroids)
+	idx,_ = vq(data,centroid)
 
-	print centroids
-	closest = closestPointToCentroid(centroids, data)
-	print 'best:'
-	print result.iloc[closest]
-	"""
-	# some plotting using numpy's logical indexing
-	plot(data[idx==0,0],data[idx==0,1],'ob', data[idx==1,0],data[idx==1,1],'or')
-	plot(centroids[:,0],centroids[:,1],'sg',markersize=8)
-	show()
-	"""
+	closest = closestPointToCentroid(centroid, data)
 
 
 
@@ -263,6 +243,7 @@ def analyzeDescription(description):
 	return (positive_count - (2*negative_count))/n_words
 
 def closestPointToCentroid(centroid, data):
+	""" Finds the point in the given data set closest to the given centroid. """
 	closest = data[0]
 	smallest_distance = np.linalg.norm(data[0]-centroid)
 	index = 0
