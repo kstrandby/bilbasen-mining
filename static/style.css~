@@ -1,0 +1,55 @@
+html,body {
+    	background-color: lightblue;
+	margin:0;
+    	padding:0;
+    	height:100%;
+}
+h1 {
+    	color: navy;
+    	margin-left: 20px;
+}
+h4 {
+	color: navy;
+}
+p {
+	color: #4B0082;
+}
+
+#table {
+    	float:left;
+    	margin-left: 20px;
+}
+#plot {
+    	float:right;
+    	margin-right: 20px;
+}
+#wrapper {
+    	min-height:100%;
+    	position:relative;
+}
+#header {
+    	padding:10px;
+    	background:#5ee;
+}
+#content {
+    	padding:10px;
+    	padding-bottom:80px; /* Height of the footer element */
+	display: inline-block; 
+}
+#footer {
+    	width:100%;
+    	height:80px;
+    	position:relative;
+    	bottom:0;
+    	left:0;
+    	background: #6666FF;
+}
+#menu {
+    	float:left;
+    	margin-left: 20px;
+}
+#statistics {
+    	float:left;
+    	margin-left: 20px;
+}
+
