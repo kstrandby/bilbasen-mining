@@ -231,8 +231,8 @@ if __name__ == '__main__':
         'server.socket_host': '127.0.0.1',
         'server.socket_port': 8888,
         'engine.autoreload_on': True,
-        'log.error_file': os.path.join(current_dir, 'errors.log'),
-        'log.access_file': os.path.join(current_dir, 'access.log'),
+        'log.error_file': os.path.join(current_dir, 'log/errors.log'),
+        'log.access_file': os.path.join(current_dir, 'log/access.log'),
     },
     '/':{
         'tools.staticdir.root' : current_dir,

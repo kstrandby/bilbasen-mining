@@ -1,0 +1,3 @@
+127.0.0.1 - - [02/Dec/2014:13:39:01] "GET / HTTP/1.1" 200 2061 "" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0"
+127.0.0.1 - - [02/Dec/2014:13:39:01] "GET /static/style.css HTTP/1.1" 200 924 "http://localhost:8888/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0"
+127.0.0.1 - - [02/Dec/2014:13:39:01] "GET /favicon.ico HTTP/1.1" 200 1406 "" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0"
