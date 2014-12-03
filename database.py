@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
 
-""" database module """
+"""
+Database module
+
+This module contains convenient methods to communicate with
+the database.
+"""
 
 import MySQLdb as mdb
 import pandas
 
 
-def connectToDatabase():
-    """ Returns a mysqldb cursor to the database """
+def connect_to_database():
+    """ Returns a MySQLdb cursor and connection to the database """
     con = mdb.connect(
         'localhost', 'user', 'bilbasen', 'bilbasendb', charset='utf8')
     con.set_character_set('utf8')
@@ -18,7 +23,7 @@ def connectToDatabase():
     return cur, con
 
 
-def checkIfTableExist(cursor, table):
+def check_if_table_exist(cursor, table):
     """ Checks if the specified table exist in the database """
     sql = "SHOW TABLES LIKE '" + table + "'"
     cursor.execute(sql)
@@ -31,7 +36,7 @@ def checkIfTableExist(cursor, table):
 
 def delete_table(cursor, table):
     """ Deletes the specified table from the database """
-    if checkIfTableExist(cursor, table):
+    if check_if_table_exist(cursor, table):
         sql = "DROP TABLE " + table
         cursor.execute(sql)
 
@@ -50,11 +55,11 @@ def commit(cursor, connection):
     connection.close()
 
 
-def getNewestTable():
+def get_newest_table():
     """ Returns the newest AllCars-table in the database by using
     the fact that the tables are named after the date they were
     generated (i.e. the date the data was download from bilbasen.dk) """
-    cur, con = connectToDatabase()
+    cur, con = connect_to_database()
     tables = pandas.read_sql_query("SHOW TABLES", con)
     newest = "0000000000000"
 
@@ -83,28 +88,28 @@ def getNewestTable():
     return newest
 
 
-def getCarBrands():
+def get_car_brands():
     """ returns a pandas series of all the brands """
-    cur, con = connectToDatabase()
+    cur, con = connect_to_database()
     query = "SELECT * FROM Brands"
     result = pandas.read_sql_query(query, con)
     all_brands = result.Brand
     return all_brands
 
 
-def getLocations(table):
+def get_locations(table):
     """ returns a pandas Series of all the sale locations present
     in the specified table """
-    cur, con = connectToDatabase()
+    cur, con = connect_to_database()
     query = "SELECT DISTINCT(location) FROM " + table + ";"
     result = pandas.read_sql_query(query, con)
     return result
 
 
-def createTestTable():
+def create_test_table():
     """ Creates a test table to have specific data to test on """
-    cur, con = connectToDatabase()
-    if not checkIfTableExist(cur, 'testTable'):
+    cur, con = connect_to_database()
+    if not check_if_table_exist(cur, 'testTable'):
         sql = "CREATE TABLE testTable (Model CHAR(100), Link CHAR(100), \
         Description MEDIUMTEXT, Kms INT(20), Year INT(4), \
         Kml FLOAT(20), Kmt FLOAT(20), Moth CHAR(30), Trailer CHAR(30), \

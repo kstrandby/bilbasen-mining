@@ -38,17 +38,17 @@ footer = """</div>
             </body>
             </html>
         """
-newest_table = database.getNewestTable()
+newest_table = database.get_newest_table()
 
 
-def generateIndexPage():
+def generate_index_page():
     if not len(index_cache) == 0:
         return index_cache
 
-    expensivecars = datamining.getMostExpensiveCars(newest_table)
-    cheapestcars = datamining.getCheapestCars(newest_table)
-    fastestcars = datamining.getFastestCars(newest_table)
-    mostecofriendlycars = datamining.getMostEcofriendlyCars(newest_table)
+    expensivecars = datamining.get_most_expensive_cars(newest_table)
+    cheapestcars = datamining.get_cheapest_cars(newest_table)
+    fastestcars = datamining.get_fastest_cars(newest_table)
+    mostecofriendlycars = datamining.get_most_ecofriendly_cars(newest_table)
 
     body = """<div id="content">
                 <div id="menu">
@@ -61,10 +61,10 @@ def generateIndexPage():
                         </h3>
                     </li>
                     <li>
-                    <h3> <a href="locationdistributions">Distribution
+                    <h3> <a href="location_distributions">Distribution
                     of car models based on locations</a> </h3> </li>
-                   <li><h3> <a href="pricekmconnection">Connection between KMs and prices</a></h3></li>
-                   <li><h3> <a href="bestoffer">Find the best offer for a certain car model</a></h3></li>
+                   <li><h3> <a href="price_km_connection">Connection between KMs and prices</a></h3></li>
+                   <li><h3> <a href="best_offer">Find the best offer for a certain car model</a></h3></li>
                    
                </ol>
                </div>
@@ -75,23 +75,23 @@ def generateIndexPage():
     else:
         body += "<h4>Most Expensive Car: </h4>"
 
-    body += html.createCarRepresentation(expensivecars, 'price')
+    body += html.create_car_representation(expensivecars, 'price')
     if len(cheapestcars) > 1:
         body += "<h4>Cheapest Cars: </h4>"
     else:
         body += "<h4>Cheapest Car: </h4>"
-    body += html.createCarRepresentation(cheapestcars, 'price')
+    body += html.create_car_representation(cheapestcars, 'price')
     if len(fastestcars) > 1:
         body += "<h4>Fastest Cars: </h4>"
     else:
         body += "<h4>Fastest Car: </h4>"
-    body += html.createCarRepresentation(fastestcars, 'kmt')
+    body += html.create_car_representation(fastestcars, 'kmt')
 
     if len(mostecofriendlycars) > 1:
         body += "<h4>Most Ecofriendly Cars: </h4>"
     else:
         body += "<h4>Most Ecofriendly Car: </h4>"
-    body += html.createCarRepresentation(mostecofriendlycars, 'kml')
+    body += html.create_car_representation(mostecofriendlycars, 'kml')
     body += "</div></div>"
 
     global index_cache
@@ -101,15 +101,15 @@ def generateIndexPage():
 
 class MiningBilbasen:
     def index(self):
-        page = generateIndexPage()
+        page = generate_index_page()
         return page
     index.exposed = True
 
     def distributions(self):
         if not len(distribution_cache) == 0:
             return distribution_cache
-        table = datamining.getDistributionAllBrands(newest_table)
-        html_table = html.createHTMLtableFromSeries(
+        table = datamining.get_distribution_all_brands(newest_table)
+        html_table = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
 
         table.plot(kind='barh', x=0)
@@ -125,7 +125,7 @@ class MiningBilbasen:
                     <div id="plot"><img src="/img/brand_distribution.png"/>
 
                     <h1>Distribution of models of a particular car brand</h1>
-                    <form action="distributionOfCarBrand" method="post">
+                    <form action="distribution_of_car_brand" method="post">
                         <table summary=""><tbody><tr>
                         <th><label for="carbrand">Car brand:</label></th>
                         <td><input type="text" name="brand"/></td>
@@ -145,16 +145,16 @@ class MiningBilbasen:
         return distribution_cache
     distributions.exposed = True
 
-    def distributionOfCarBrand(self, brand):
-        table = datamining.getDistributionOneBrand(newest_table, str(brand))
-        body = html.createHTMLtableFromSeries(
+    def distribution_of_car_brand(self, brand):
+        table = datamining.get_distribution_one_brand(newest_table, str(brand))
+        body = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
         return header + body + footer
-    distributionOfCarBrand.exposed = True
+    distribution_of_car_brand.exposed = True
 
-    def locationdistributions(self, brand="all brands"):
-        distribution_all_brands = datamining.getLocationDistributionAllBrands(
-            newest_table)
+    def location_distributions(self, brand="all brands"):
+        distribution_all_brands = datamining. \
+            get_location_distribution_all_brands(newest_table)
 
         body = '<h1> Distribution of cars based on sale location </h1><div id="content">'
 
@@ -165,10 +165,10 @@ class MiningBilbasen:
             plt.clf()
 
             # create map
-            graphics.createDistributionMap(distribution_all_brands)
+            graphics.create_distribution_map(distribution_all_brands)
         else:
 
-            distribution = datamining.getLocationDistributionOneBrand(
+            distribution = datamining.get_location_distribution_one_brand(
                 newest_table, brand)
 
             # create pie chart of the distribution
@@ -177,11 +177,11 @@ class MiningBilbasen:
             plt.clf()
 
             # create map
-            graphics.createDistributionMap(distribution)
+            graphics.create_distribution_map(distribution)
 
         body += """<p>The pie chart shows the distribution of """ + smart_str(brand) + """ based on sales locations. <br> To see a pie chart of the distribution of a particular car
         brand, enter the <br> car brand that you want to see below:</p>
-        <form action="locationdistributions" method="post">
+        <form action="location_distributions" method="post">
                         <table summary=""><tbody><tr>
                        <th><label for="carbrand">Car brand:</label></th>
                        <td><input type="text" name="brand"/></td>
@@ -197,14 +197,14 @@ class MiningBilbasen:
                     <img src="img/distributionmap.png"</div></div>"""
 
         return header + body + footer
-    locationdistributions.exposed = True
+    location_distributions.exposed = True
 
-    def pricekmconnection(self):
+    def price_km_connection(self):
         body = "Not implemented yet"
         return header + body + footer
-    pricekmconnection.exposed = True
+    price_km_connection.exposed = True
 
-    def bestoffer(self, model=None):
+    def best_offer(self, model=None):
         body = """<h1>Best offer</h1>
                     <div id="content">
                     <p>Enter car model below to get the best offer:</p>
@@ -220,11 +220,11 @@ class MiningBilbasen:
                     </form>
                     """
         if not model is None:
-            datamining.calculateBestOffer(newest_table, model)
+            datamining.calculate_best_offer(newest_table, model)
             body += "Here will the best offer be shown"
         body += '</div>'
         return header + body + footer
-    bestoffer.exposed = True
+    best_offer.exposed = True
 
 if __name__ == '__main__':
     # set the directory

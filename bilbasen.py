@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 Bilbasen module
-This module handles all communication with bilbasen.dk, and it thus
-contains functions to communicate with bilbasen.dk
-as well as functions to download data from bilbasen.dk.
+
+This module handles all communication with bilbasen.dk, and it
+contains functions to communicate with bilbasen.dk as well as
+functions to download data from bilbasen.dk.
+The main part of the module runs the method download_data_to_database
+which is the most important method of the module, as this is
+where bilbasen.dk is crawled and the data is parsed and saved
+in a database.
 """
 
 from bs4 import BeautifulSoup
@@ -50,13 +55,15 @@ def extract_car_info(listing_type, listing):
     if listing_type == 'plus' or listing_type == 'discount':
         description = listing.find(
             'div', class_='listing-description expandable-box').string
-        description = description.replace("'", "''")
-        description = smart_str(description)
+        if description is not None:
+            description = description.replace("'", "''")
+            description = smart_str(description)
     elif listing_type == 'exclusive':
         description = listing.find(
             'div', class_='row exclusive-listing-description').string
-        description = description.replace("'", "''")
-        description = smart_str(description)
+        if description is not None:
+            description = description.replace("'", "''")
+            description = smart_str(description)
 
     data = listing.find_all('div', class_='col-xs-2 listing-data ')
     kms = int(data[1].string.replace(".", ""))
@@ -104,7 +111,7 @@ def create_car_brand_table(conn):
     res = conn.getresponse()
     content = res.read()
     parsed_html = BeautifulSoup(content, from_encoding='utf8')
-    cur, con = database.connectToDatabase()
+    cur, con = database.connect_to_database()
 
     # delete the old table
     if database.checkIfTableExist(cur, 'Brands'):
@@ -182,8 +189,9 @@ def download_data_to_database(limit=None):
         IncludeLeasing + "&HpFrom=" + HpFrom + "&HpTo=" + HpTo + \
         "&page=" + page
 
-    # connect to bilbasen.dk and do a GET request for the URI
+    # connect to bilbasen.dk, download brands and do a GET request for the URI
     conn = connect()
+    create_car_brand_table(conn)
     conn.request("GET", query)
     res = conn.getresponse()
 
@@ -193,7 +201,7 @@ def download_data_to_database(limit=None):
 
     # create the table in the database
     try:
-        cur, con = database.connectToDatabase()
+        cur, con = database.connect_to_database()
         with con:
             date = get_date()
             tablename = 'AllCars' + date
