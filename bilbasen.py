@@ -114,7 +114,7 @@ def create_car_brand_table(conn):
     cur, con = database.connect_to_database()
 
     # delete the old table
-    if database.checkIfTableExist(cur, 'Brands'):
+    if database.check_if_table_exist(cur, 'Brands'):
         database.delete_table(cur, 'Brands')
         cur.execute("CREATE TABLE Brands(Brand CHAR(100))")
 
@@ -205,7 +205,7 @@ def download_data_to_database(limit=None):
         with con:
             date = get_date()
             tablename = 'AllCars' + date
-            if database.checkIfTableExist(cur, tablename):
+            if database.check_if_table_exist(cur, tablename):
                 database.delete_table(cur, tablename)
             command = "CREATE TABLE " + tablename + "(Model CHAR(100), " + \
                 "Link CHAR(100), Description MEDIUMTEXT, Kms INT(20), " + \

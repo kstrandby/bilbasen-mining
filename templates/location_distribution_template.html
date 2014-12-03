@@ -1,0 +1,39 @@
+{% extends "base_template.html" %}
+{% block content %}
+<div id="content">
+    <h1>Distribution of cars based on sale location</h1>
+    <p> 
+        The pie chart shows the distribution of 
+        {{brand}}
+        based on sales locations. <br> 
+        To see the distribution of a particular car brand, enter the <br> 
+        car brand that you want to see below: 
+    </p>
+    <form action="location_distributions" method="post">
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="carbrand">Car brand:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="brand"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="submit" value="Show distribution" />
+                    </td></tr>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div id=distplot>
+        <img src="img/location_distribution.png"/>
+        <img src="img/distributionmap.png"/>
+    </div>
+</div>
+
+{% endblock %}

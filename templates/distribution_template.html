@@ -1,0 +1,36 @@
+{% extends "base_template.html" %}
+{% block content %}
+<div id="content">
+    <h1>{{title}}</h1>
+    <div id="table">
+        {{htmltable}}
+    </div>
+    <div id="plot">
+        <img src="/img/brand_distribution.png"/>
+        <h1>Distribution of models of a particular car brand</h1>
+        <form action="distribution_of_car_brand" method="post">
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="carbrand">Car brand:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="brand"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="submit" value="Show distribution" />
+                    </td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

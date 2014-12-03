@@ -1,0 +1,27 @@
+{% extends "base_template.html" %}
+{% block content %}
+<div id="content">
+    <h1>Get the best offer for a particular model</h1>
+    <p>Enter car model below to get the best offer:</p>
+    <form action="best_offer" method="post">
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        <input type="text" name="model"/>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="submit" value="Get best offer" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    {{best_offer}}
+</div>
+
+{% endblock %}

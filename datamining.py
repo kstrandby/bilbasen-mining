@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
-""" Datamining module """
+""" Datamining module
+
+    This module contains all the data mining methods. 
+
+"""
+
 from __future__ import division
 from decimal import *
 from django.utils.encoding import smart_str
-from scipy.cluster.vq import kmeans, vq
+from scipy.cluster.vq import kmeans
+from scipy.cluster import vq
+
+import statsmodels.api as sm
+import numpy as np
+import matplotlib.pyplot as plt
 import pandas
 import re
 import nltk
-import numpy as np
 import itertools
 
 import database
@@ -151,9 +160,9 @@ def extract_brands(models):
     all_brands = database.get_car_brands()
     extracted_brands = []
     for car in models:
-        car = smart_str(car)
+        #car = smart_str(car)
         for brand in all_brands:
-            brand = smart_str(brand)
+            #	brand = smart_str(brand)
             if brand in car:
                 extracted_brands.append(brand)
     return extracted_brands
@@ -220,40 +229,6 @@ def get_most_ecofriendly_cars(table):
     return pandas.read_sql_query(query, con)
 
 
-def calculate_best_offer(table, model):
-    """ """
-    # get all the offers for the specified model
-    keywords = model.split()
-    cur, con = database.connect_to_database()
-    query = "SELECT * FROM " + table + " WHERE Model LIKE '%%%" \
-        + keywords[0] + "%%%'"
-    if len(keywords) > 1:
-        for keyword in itertools.islice(keywords, 1, len(keywords)):
-            query += " AND Model LIKE '%%%" + keyword + "%%%'"
-
-    else:
-        query += ";"
-
-    result = pandas.read_sql_query(query, con)
-
-    data = []
-    for index, car in result.iterrows():
-        rank = analyze_description(car.Description)
-        # create data array of [description_score, price, kms]
-        data.append([rank, car.Price, car.Kms, car.Kml])
-
-    # convert to numpy array
-    data = np.array(data)
-
-    # computing K-Means with K = 2 (2 clusters)
-    centroid, _ = kmeans(data, 1)
-    # assign each sample to a cluster
-    idx, _ = vq(data, centroid)
-
-    index, closest = closest_point_to_centroid(centroid, data)
-    print index, closest
-
-
 def analyze_description(description):
     """ A very simple sentiment analysis function
         Assigns a score to a sentence, based on how many positive or
@@ -316,23 +291,68 @@ def analyze_description(description):
             positive_count += 1
         elif word in negatives:
             negative_count += 1
+    if n_words != 0:
+        return (positive_count - (2*negative_count))/n_words
+    else:
+        return 0
 
-    return (positive_count - (2*negative_count))/n_words
 
+def calculate_best_offer(table, model):
+    """ This method calculates the best offer for a given car model.
+        The calculation is based on creating a linear regression model
+        of the attributes: car description, mileage and age,
+        with prices as y-values. The description of the car is analyzed
+        to get a rank value, using the modules analyze_description method. 
+        Based on the linear regression model, a prediction of the prices
+        is calculated, and the differences between the predicted prices and
+        the actual prices are calculated to find the biggest difference (the
+        largest negative value), which is the best offer.
+        The returned result is a pandas DataFrame along with the difference. """
 
-def closest_point_to_centroid(centroid, data):
-    """ Finds the point in the given data set closest to the
-        given centroid. """
-    closest = data[0]
-    smallest_distance = np.linalg.norm(data[0]-centroid)
-    index = 0
-    i = 0
-    for row in data:
-        distance = np.linalg.norm(row - centroid)
-        if distance < smallest_distance:
-            smallest_distance = distance
-            closest = row
-            index = i
-        i += 1
+    """ get all the offers for the specified model """
+    keywords = model.split()
+    cur, con = database.connect_to_database()
+    query = "SELECT * FROM " + table + " WHERE Model LIKE '%%%" \
+        + keywords[0] + "%%%'"
+    if len(keywords) > 1:
+        for keyword in itertools.islice(keywords, 1, len(keywords)):
+            query += " AND Model LIKE '%%%" + keyword + "%%%'"
 
-    return index, closest
+    else:
+        query += ";"
+
+    result = pandas.read_sql_query(query, con)
+
+    """ create data array of [description_score, price, kms, year] """
+    data = []
+    for index, car in result.iterrows():
+        if car.Price != 0:  # do not include cars with price = 0
+            rank = analyze_description(car.Description)
+            data.append([rank, car.Kms, car.Year, car.Price])
+
+    columns = ['rank', 'kms', 'year', 'price']
+    dat = pandas.DataFrame.from_records(data, columns=columns)
+
+    """ y (price) will be the response, and X (rank, kms, year)
+    will be the predictors """
+    X = dat.iloc[:, [0, 1, 2]]
+    y = dat.iloc[:, [3]]
+
+    """ add a constant term to the predictors to fit the intercept of
+    the linear model """
+    X = sm.add_constant(X)
+
+    """ calculate the linear regression model with price as y-value
+    to get the prediction values """
+    reg_model = sm.OLS(y, X).fit()
+    predictions = reg_model.predict()
+
+    """ create an array of the differences between the predicted values
+    and the actual values for the prices and find the minimum - this is
+    the best offer """
+    differences = y.price.values - predictions
+    smallest = np.amin(differences, axis=0)
+    index = differences.argmin(axis=0)
+    best_offer = result.loc[index]
+    return best_offer, smallest
+

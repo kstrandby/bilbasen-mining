@@ -1,0 +1,38 @@
+{% extends "base_template.html" %}
+{% block content %}
+<div id="content">
+    <h1>Overview of coherence between prices and mileage</h1>
+    <p> 
+        The scatter plot shows the coherence between prices and mileage, and
+        prices and ages for {{brand}}. <br> 
+        To see a scatter plot of a particular car brand, enter the <br> 
+        car brand that you want to see below: 
+    </p>
+    <form action="price_km_year_coherence" method="post">
+        <table summary="">
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="carbrand">Car brand:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="brand"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="submit" value="Show scatter plot" />
+                    </td></tr>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div id=distplot>
+        <img src="img/price_km_scatter.png"/>
+        <img src="img/price_year_scatter.png"/>
+    </div>
+</div>
+
+{% endblock %}

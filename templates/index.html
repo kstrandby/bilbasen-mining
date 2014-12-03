@@ -1,0 +1,36 @@
+{% extends "base_template.html" %}
+{% block content %}
+<div id="content">
+    <div id="menu">
+        <h1>Data mining of <a href="http://www.bilbasen.dk">www.bilbasen.dk</a></h1>
+        <ol>
+            <li>
+                <h3> <a href="distributions">Distribution of
+                car models</a>
+                </h3>
+            </li>
+            <li>
+                <h3> <a href="location_distributions">Distribution
+                of car models based on locations</a> </h3> 
+            </li>
+            <li>
+                <h3> <a href="price_km_year_coherence">Connection between prices, mileage and age</a></h3>
+            </li>
+            <li>
+                <h3> <a href="best_offer">Find the best offer for a certain car model</a></h3>
+            </li>
+        </ol>
+    </div>
+    <div id="datamining">
+        <h4>Most Expensive Car: </h4>
+        {{expensive_car}}
+        <h4>Cheapest Car: </h4>
+        {{cheapest_car}}
+        <h4>Fastest Car: </h4>
+        {{fastest_car}}
+        <h4>Most Ecofriendly Car: </h4>
+        {{ecofriendly_car}}
+    </div>
+</div>
+
+{% endblock %}
