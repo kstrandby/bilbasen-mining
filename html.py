@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
-""" html module
+""" The module contains methods to create html representations."""
 
-    This module contains convenient methods to create html representations
-    of various data types.
-
-"""
 from django.utils.encoding import smart_str
-from bs4 import BeautifulSoup
 import bilbasen
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
 def create_HTMLtable_from_series(series, listofheaders):
-    """ This method creates a html table from a Pandas Series, with
-        headers as provided in the listofheaders. """
+    """ The method creates a html table from a Pandas Series.
+
+    The headers of the html table will be the ones specified
+    in the listofheaders.
+    """
     htmltable = '<table><tr>'
     for header in listofheaders:
         htmltable += '<th>' + header + '</th>'
@@ -31,9 +30,11 @@ def create_HTMLtable_from_series(series, listofheaders):
 
 
 def create_car_representation(cars, attribute):
-    """ This method creates a html div containing specific information,
-        which depends on the given attribute. It also downloads a picture
-        of the car to represent in the div from bilbasen.dk """
+    """ The method creates a html div containing specific information.
+
+    The information depends on the given attribute. It also downloads a
+    picture of the car to represent in the div from bilbasen.dk.
+    """
     rep = """<div id="carinf"><p>"""
     for index, car in cars.iterrows():
         rep += smart_str(car.Model)
@@ -51,4 +52,3 @@ def create_car_representation(cars, attribute):
         rep += '<div id="carpics"><img src="' + img_src + '"></div>'
 
         return rep
-

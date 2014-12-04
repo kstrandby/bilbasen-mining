@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
-"""
-Database module
-
-This module contains convenient methods to communicate with
-the database.
-"""
+""" This module contains methods to communicate with the database."""
 
 import MySQLdb as mdb
 import pandas
 
 
 def connect_to_database():
-    """ Returns a MySQLdb cursor and connection to the database """
+    """ Connect to the database 'bilbasendb'.
+
+    Return:
+    cur -- a MySQLdb cursor
+    con -- a connection to the database
+    """
     con = mdb.connect(
         'localhost', 'user', 'bilbasen', 'bilbasendb', charset='utf8')
     con.set_character_set('utf8')
@@ -24,7 +24,7 @@ def connect_to_database():
 
 
 def check_if_table_exist(cursor, table):
-    """ Checks if the specified table exist in the database """
+    """ Check if a specified table exist in the database. """
     sql = "SHOW TABLES LIKE '" + table + "'"
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -35,30 +35,34 @@ def check_if_table_exist(cursor, table):
 
 
 def delete_table(cursor, table):
-    """ Deletes the specified table from the database """
+    """ Delete the specified table from the database. """
     if check_if_table_exist(cursor, table):
         sql = "DROP TABLE " + table
         cursor.execute(sql)
 
 
 def query(cursor, query):
-    """ Executes the specified query and returns the retrieved data """
+    """ Execute the specified query and return the retrieved data. """
     cursor.execute(query)
     return cursor.fetchall()
 
 
 def commit(cursor, connection):
-    """ Commits any changes to the database - this function should
-    be used after inserting and deleting """
+    """ Commit any changes to the database.
+
+    This function should be used after inserting and deleting.
+    """
     cursor.close()
     connection.commit()
     connection.close()
 
 
 def get_newest_table():
-    """ Returns the newest AllCars-table in the database by using
-    the fact that the tables are named after the date they were
-    generated (i.e. the date the data was download from bilbasen.dk) """
+    """ Return the newest 'AllCars'-table in the database.
+
+    The method uses the fact that the tables are named after the date they were
+    generated (i.e. the date the data was download from bilbasen.dk).
+    """
     cur, con = connect_to_database()
     tables = pandas.read_sql_query("SHOW TABLES", con)
     newest = "0000000000000"
@@ -89,7 +93,7 @@ def get_newest_table():
 
 
 def get_car_brands():
-    """ returns a pandas series of all the brands """
+    """ Return a pandas series of all the brands. """
     cur, con = connect_to_database()
     query = "SELECT * FROM Brands"
     result = pandas.read_sql_query(query, con)
@@ -98,8 +102,11 @@ def get_car_brands():
 
 
 def get_locations(table):
-    """ returns a pandas Series of all the sale locations present
-    in the specified table """
+    """ Return a pandas Series of all the sale locations.
+
+    The sales locations returned are the ones present
+    in the specified table.
+    """
     cur, con = connect_to_database()
     query = "SELECT DISTINCT(location) FROM " + table + ";"
     result = pandas.read_sql_query(query, con)
@@ -107,7 +114,7 @@ def get_locations(table):
 
 
 def create_test_table():
-    """ Creates a test table to have specific data to test on """
+    """ Create a test table to have specific data to test on. """
     cur, con = connect_to_database()
     if not check_if_table_exist(cur, 'testTable'):
         sql = "CREATE TABLE testTable (Model CHAR(100), Link CHAR(100), \

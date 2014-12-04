@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Bilbasen module
-
 This module handles all communication with bilbasen.dk, and it
 contains functions to communicate with bilbasen.dk as well as
 functions to download data from bilbasen.dk.
@@ -29,21 +27,22 @@ Car = namedtuple('Car', 'model link description kms year hk kml kmt moth \
 
 
 def connect():
-    """ This method returns a httplib connection to bilbasen.dk """
+    """ The method returns a httplib connection to bilbasen.dk. """
     return httplib.HTTPConnection("www.bilbasen.dk")
 
 
 def extract_car_info(listing_type, listing):
-    """ This method is used by the method download_data_to_database() and
-        extracts data from a html listing. The data extracted is all the
-        attributes on a car given on a search result site, which is:
-        model, link to detailed page, description, how many km it has done,
-        which year it is from, how many horsepowers it has, how many
-        km per liter it does, how fast it goes from 0-100 km/t, what the
-        monthly cost is, if it can pull a trailer, and a location.
-        The method saves this data in the namedtupe Car and returns
-        that tuple. """
+    """ The method is used by the download_data_to_database().
 
+    It and extracts data from a html listing. The data extracted is all the
+    attributes on a car given on a search result site, which is:
+    model, link to detailed page, description, how many km it has done,
+    which year it is from, how many horsepowers it has, how many
+    km per liter it does, how fast it goes from 0-100 km/t, what the
+    monthly cost is, if it can pull a trailer, and a location.
+    The method saves this data in the namedtupe Car and returns
+    that tuple.
+    """
     model = smart_str(listing.find(
         'a', attrs={'class': 'listing-heading darkLink'}).string)
     link = listing.find(
@@ -96,12 +95,17 @@ def extract_car_info(listing_type, listing):
 
 
 def get_date():
-    """ This method returns the current date """
+    """ The method returns the current date. """
     t = time.strftime("%d%m%y")
     return t
 
 
 def get_car_image_src(link):
+    """ The method returns a link to an image of a car.
+
+    Given a link to a car description page, a link to
+    an image of the car is found and returned.
+    """
     conn = connect()
     conn.request("GET",  link)
     res = conn.getresponse()
@@ -115,11 +119,13 @@ def get_car_image_src(link):
 
 
 def create_car_brand_table(conn):
-    """ This method crawls bilbasen.dk for a list of car brands, and
-        creates and stores these brands in a table called 'Brands' in
-        the database. The method is called each time the method
-        download_data_to_database is called. """
+    """ The method creates a database table of car brands.
 
+    It crawls bilbasen.dk for a list of car brands, and creates
+    and stores these brands in a table called 'Brands' in the
+    database. The method is called each time the method
+    download_data_to_database is called.
+    """
     conn.request("GET", "/")
     res = conn.getresponse()
     content = res.read()
@@ -143,9 +149,12 @@ def create_car_brand_table(conn):
 
 
 def insert_car_to_table(car, tablename, cursor):
-    """ This method takes as input a namedtuple Car, a name of a table
-        in the database and a cursor to the database, and inserts the
-        car into the given table. """
+    """ The method inserts a column with car data to a database table.
+
+    This method takes as input a namedtuple Car, a name of a table
+    in the database and a cursor to the database, and inserts the
+    car into the given table.
+    """
     cursor.execute("INSERT INTO "+tablename+"(Model, Link,  "
                    "Description, Kms, Year, Kml, Kmt, Moth, "
                    "Trailer, Location, Price) VALUES('%s', '%s', "
@@ -164,15 +173,17 @@ def insert_car_to_table(car, tablename, cursor):
 
 
 def download_data_to_database(limit=None):
-    """ This method is the most important one of this module, as this is the
-        one crawling bilbasen.dk to extract data of cars currently on sale.
-        The method creates a new table each time it is called, and the table
-        will be named 'AllBrandsDDMMYY', where DDMMYY is the current date. If
-        the table already exist, it will be deleted.
-        The method takes an optional parameter, defining how many pages to
-        crawl. If no parameter is given, it crawls all pages (i.e. all cars)
-        on bilbasen.dk """
+    """ The method scrapes data of cars at Bilbasen.dk.
 
+    This method is the most important one of this module, as this is the
+    one crawling bilbasen.dk to extract data of cars currently on sale.
+    The method creates a new table each time it is called, and the table
+    will be named 'AllBrandsDDMMYY', where DDMMYY is the current date. If
+    the table already exist, it will be deleted.
+    The method takes an optional parameter, defining how many pages to
+    crawl. If no parameter is given, it crawls all pages (i.e. all cars)
+    on bilbasen.dk.
+    """
     # define the default parameters for the URI
     Brand = ""  # add forwardslash e.g. "/ford"
     Model = ""  # add forwardslash e.g. "/ka"
@@ -301,9 +312,12 @@ def download_data_to_database(limit=None):
 
 
 def main():
-    """ Main method which will run by a command 'python bilbasen.py arg',
-        where arg is the number of pages to crawl. Do not provide any
-        argument if all pages should be crawled. """
+    """ The method is the main method of the script.
+
+    The which will run by a command 'python bilbasen.py arg',
+    where arg is the number of pages to crawl. Do not provide any
+    argument if all pages should be crawled.
+    """
     if len(sys.argv) == 1:
         download_data_to_database()
     else:

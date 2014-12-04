@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
-""" Graphics module
+""" Module to create visualization of data.
 
-    This module contains methods to create plots of different types
-    to visualize the data and results from the data mining methods.
-
+The module contains methods to create plots of different types
+to visualize the data and results from the data mining methods.
 """
+
 from __future__ import division
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
-from scipy import stats
 import pandas
 import database
 
 
 def create_distribution_map(distribution):
-    """ Given a distribution as a pandas Series with indexes as locations
-        and values as the number of cars at that location, this method
-        creates a map of Denmark using Basemap, and plots a scatter plot
-        on top of the map. Each scatter will correspond to a location, and
-        its size will correspond to the number of cars at that location. """
+    """ Create a distribution map.
 
-    """ define longitudes and latitudes for the different regions """
+    Given a distribution as a pandas Series with indexes as locations
+    and values as the number of cars at that location, this method
+    creates a map of Denmark using Basemap, and plots a scatter plot
+    on top of the map. Each scatter will correspond to a location, and
+    its size will correspond to the number of cars at that location.
+    """
+    # define longitudes and latitudes for the different regions
     nordsjaelland_lat = 55.893253
     nordsjaelland_lon = 12.332886
     sydvestsjaelland_lat = 55.300459
@@ -80,7 +81,7 @@ def create_distribution_map(distribution):
             lons.append(bornholm_lon)
             lats.append(bornholm_lat)
 
-        """ for all (except if index is None), append value to the values list """
+        # for all (except if index is None), append value to the values list
         if index != 'None':
             percentage = (value / value_sum) * 100
             values.append(percentage * 100)
@@ -103,9 +104,11 @@ def create_distribution_map(distribution):
 
 
 def create_price_km_scatter(table, brand):
-    """ This method creates a scatter plot showing the coherence 
-        between prices and mileage (in km's). """
+    """ The method creates a scatter plot.
 
+    The scatter plot shows the coherence between prices and
+    mileage (in km's) of the cars in the table.
+    """
     cur, con = database.connect_to_database()
     query = ''
     if brand == 'all brands':
@@ -142,9 +145,12 @@ def create_price_km_scatter(table, brand):
 
 
 def create_price_year_scatter(table, brand):
-    """ This method creates a scatter plot showing the coherence 
-        between prices and age (in production year). """
+    """ The method creates a scatter plot.
 
+    The method creates a scatter plot showing the coherence
+    between prices and age (in production year) of the cars present
+    on the given table.
+    """
     cur, con = database.connect_to_database()
     query = ''
     if brand == 'all brands':
@@ -181,11 +187,13 @@ def create_price_year_scatter(table, brand):
 
 
 def create_distribution_plot(table, n_bars, plot_name):
-    """ This method creates a bar plot showing the distribution of the
-        data in the table, which has to be a pandas DataFrame, and saves
-        it with the given name.
-        The plot will only include the specified number of bars (n_bars),
-        as otherwise it can become very crowded. """
+    """ The method creates a bar plot of a given distribution.
+
+    The method takes as input a pandas DataFrame containing a distribution,
+    creates the bar plot and saves it with the given name.
+    The plot will only include the specified number of bars (n_bars),
+    as otherwise it can become very crowded.
+    """
     sliced_table = table[:n_bars]
     sliced_table.plot(kind='barh', x=0)
     plt.tight_layout()
@@ -194,8 +202,11 @@ def create_distribution_plot(table, n_bars, plot_name):
 
 
 def create_pie_plot(distribution, plot_name):
-    """ This method creates a pie chart of a given distribution, provided
-        as a pandas DataFrame, and saves it with the given name. """
+    """ The method creates a pie chart of a given distribution.
+
+    The method takes as input a pandas DataFrame, creates the pie chart,
+    and saves it with the given name.
+    """
     distribution.plot(kind='pie')
     plt.tight_layout()
     plt.savefig(plot_name, transparent=True)

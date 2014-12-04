@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>BilbasenDataMining.html</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;BilbasenDataMining ::
+        Module&nbsp;html
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="BilbasenDataMining.html-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="BilbasenDataMining.html-module.html">Module BilbasenDataMining.html</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: utf-8 -*-</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">""" html module</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">    This module contains convenient methods to create html representations</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-docstring">    of various data types.</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">utils</tt><tt class="py-op">.</tt><tt class="py-name">encoding</tt> <tt class="py-keyword">import</tt> <tt class="py-name">smart_str</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">bs4</tt> <tt class="py-keyword">import</tt> <tt class="py-name">BeautifulSoup</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module BilbasenDataMining.bilbasen=BilbasenDataMining.bilbasen-module.html"><a title="BilbasenDataMining.bilbasen" class="py-name" href="#" onclick="return doclink('link-0', 'bilbasen', 'link-0');">bilbasen</a></tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-name">reload</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">setdefaultencoding</tt><tt class="py-op">(</tt><tt class="py-string">'utf-8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="create_HTMLtable_from_series"></a><div id="create_HTMLtable_from_series-def"><a name="L16"></a><tt class="py-lineno">16</tt> <a class="py-toggle" href="#" id="create_HTMLtable_from_series-toggle" onclick="return toggle('create_HTMLtable_from_series');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="BilbasenDataMining.html-module.html#create_HTMLtable_from_series">create_HTMLtable_from_series</a><tt class="py-op">(</tt><tt class="py-param">series</tt><tt class="py-op">,</tt> <tt class="py-param">listofheaders</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="create_HTMLtable_from_series-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="create_HTMLtable_from_series-expanded"><a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">    <tt class="py-docstring">""" This method creates a html table from a Pandas Series, with</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        headers as provided in the listofheaders. """</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt class="py-name">htmltable</tt> <tt class="py-op">=</tt> <tt class="py-string">'&lt;table&gt;&lt;tr&gt;'</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">header</tt> <tt class="py-keyword">in</tt> <tt class="py-name">listofheaders</tt><tt class="py-op">:</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">        <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;th&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">header</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/th&gt;'</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">    <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;/tr&gt;'</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-1" class="py-name" targets="Method BilbasenDataMining.main.MiningBilbasen.index()=BilbasenDataMining.main.MiningBilbasen-class.html#index"><a title="BilbasenDataMining.main.MiningBilbasen.index" class="py-name" href="#" onclick="return doclink('link-1', 'index', 'link-1');">index</a></tt><tt class="py-op">,</tt> <tt class="py-name">row</tt> <tt class="py-keyword">in</tt> <tt class="py-name">series</tt><tt class="py-op">.</tt><tt class="py-name">iterrows</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;tr&gt;'</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">column</tt> <tt class="py-keyword">in</tt> <tt class="py-name">row</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">            <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;td&gt;'</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">column</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">'&lt;/td&gt;'</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;/tr&gt;'</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-name">htmltable</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;/table&gt;'</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">htmltable</tt> </tt>
+</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="create_car_representation"></a><div id="create_car_representation-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="create_car_representation-toggle" onclick="return toggle('create_car_representation');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="BilbasenDataMining.html-module.html#create_car_representation">create_car_representation</a><tt class="py-op">(</tt><tt class="py-param">cars</tt><tt class="py-op">,</tt> <tt class="py-param">attribute</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="create_car_representation-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="create_car_representation-expanded"><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-docstring">""" This method creates a html div containing specific information,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">        which depends on the given attribute. It also downloads a picture</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"><tt class="py-docstring">        of the car to represent in the div from bilbasen.dk """</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">rep</tt> <tt class="py-op">=</tt> <tt class="py-string">"""&lt;div id="carinf"&gt;&lt;p&gt;"""</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-2" class="py-name"><a title="BilbasenDataMining.main.MiningBilbasen.index" class="py-name" href="#" onclick="return doclink('link-2', 'index', 'link-1');">index</a></tt><tt class="py-op">,</tt> <tt class="py-name">car</tt> <tt class="py-keyword">in</tt> <tt class="py-name">cars</tt><tt class="py-op">.</tt><tt class="py-name">iterrows</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-name">rep</tt> <tt class="py-op">+=</tt> <tt class="py-name">smart_str</tt><tt class="py-op">(</tt><tt class="py-name">car</tt><tt class="py-op">.</tt><tt class="py-name">Model</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">attribute</tt> <tt class="py-op">==</tt> <tt class="py-string">'price'</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">            <tt class="py-name">rep</tt> <tt class="py-op">+=</tt> <tt class="py-string">"&lt;/p&gt;&lt;p&gt;Price: "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">car</tt><tt class="py-op">.</tt><tt class="py-name">Price</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-string">"DKK &lt;/p&gt;&lt;/div&gt;"</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">attribute</tt> <tt class="py-op">==</tt> <tt class="py-string">'kmt'</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">            <tt class="py-name">rep</tt> <tt class="py-op">+=</tt> <tt class="py-string">"&lt;/p&gt;&lt;p&gt;From 0-100 kmt/t: "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">car</tt><tt class="py-op">.</tt><tt class="py-name">Kmt</tt><tt class="py-op">)</tt> \ </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">                <tt class="py-op">+</tt> <tt class="py-string">"secs &lt;/p&gt;&lt;/div&gt;"</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">attribute</tt> <tt class="py-op">==</tt> <tt class="py-string">'kml'</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">            <tt class="py-name">rep</tt> <tt class="py-op">+=</tt> <tt class="py-string">"&lt;/p&gt;&lt;p&gt;Kilometers per liter: "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">car</tt><tt class="py-op">.</tt><tt class="py-name">Kml</tt><tt class="py-op">)</tt> \ </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">                <tt class="py-op">+</tt> <tt class="py-string">"km/l &lt;/p&gt;&lt;/div&gt;"</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-comment"># download a picture of the car from bilbasen.dk</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-name">img_src</tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="BilbasenDataMining.bilbasen" class="py-name" href="#" onclick="return doclink('link-3', 'bilbasen', 'link-0');">bilbasen</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Function BilbasenDataMining.bilbasen.get_car_image_src()=BilbasenDataMining.bilbasen-module.html#get_car_image_src"><a title="BilbasenDataMining.bilbasen.get_car_image_src" class="py-name" href="#" onclick="return doclink('link-4', 'get_car_image_src', 'link-4');">get_car_image_src</a></tt><tt class="py-op">(</tt><tt class="py-name">car</tt><tt class="py-op">.</tt><tt class="py-name">Link</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-name">rep</tt> <tt class="py-op">+=</tt> <tt class="py-string">'&lt;div id="carpics"&gt;&lt;img src="'</tt> <tt class="py-op">+</tt> <tt class="py-name">img_src</tt> <tt class="py-op">+</tt> <tt class="py-string">'"&gt;&lt;/div&gt;'</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">rep</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec  4 14:02:10 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Main script
+Main script to run the cherrypy web application.
 
 This is the main script of the module and is used to run the cherrypy
 web application - run the web application by 'python main.py'
@@ -12,7 +12,6 @@ It consist of a class MiningBilbasen, which contains methods for each site
 of the web application (specifying their URLs).
 Each method returns the HTML of the site, which is used by cherrypy
 to present the site.
-
 """
 import cherrypy
 import os
@@ -29,36 +28,47 @@ env = Environment(loader=PackageLoader('main', 'templates'))
 newest_table = database.get_newest_table()
 
 
-def generate_index_page():
-    """ This method generates the index page of the web application and uses
-        the jinja2 template 'index.html' to present it. """
-    expensivecars = datamining.get_most_expensive_cars(newest_table)
-    cheapestcars = datamining.get_cheapest_cars(newest_table)
-    fastestcars = datamining.get_fastest_cars(newest_table)
-    mostecofriendlycars = datamining.get_most_ecofriendly_cars(newest_table)
-
-    expensive = html.create_car_representation(expensivecars, 'price')
-    cheap = html.create_car_representation(cheapestcars, 'price')
-    fast = html.create_car_representation(fastestcars, 'kmt')
-    ecofriendly = html.create_car_representation(mostecofriendlycars, 'kml')
-
-    template = env.get_template('index.html')
-    html_content = template.render(
-        expensive_car=expensive, cheapest_car=cheap,
-        fastest_car=fast, ecofriendly_car=ecofriendly)
-    return html_content
-
-
 class MiningBilbasen:
+
+    """ The class contains method used to generate the webpages."""
+
     def index(self):
-        page = generate_index_page()
-        return page
+        """ The method generates the index page of the web application.
+
+        The page is generated using the jinja2 template
+        'index.html' to present it.
+        """
+        expensivecars = datamining.get_most_expensive_cars(
+            newest_table)
+        cheapestcars = datamining.get_cheapest_cars(
+            newest_table)
+        fastestcars = datamining.get_fastest_cars(
+            newest_table)
+        mostecofriendlycars = datamining.get_most_ecofriendly_cars(
+            newest_table)
+
+        expensive = html.create_car_representation(
+            expensivecars, 'price')
+        cheap = html.create_car_representation(
+            cheapestcars, 'price')
+        fast = html.create_car_representation(
+            fastestcars, 'kmt')
+        ecofriendly = html.create_car_representation(
+            mostecofriendlycars, 'kml')
+
+        template = env.get_template('index.html')
+        html_content = template.render(
+            expensive_car=expensive, cheapest_car=cheap,
+            fastest_car=fast, ecofriendly_car=ecofriendly)
+        return html_content
     index.exposed = True
 
     def distributions(self):
-        """ This method generates the distributions page and uses
-            the jinja2 template 'distribution_template.html' to
-            generate the html. """
+        """ The method generates the distributions page.
+
+        The page is generated using the jinja2 template
+        'distribution_template.html'.
+        """
         table = datamining.get_distribution_all_brands(newest_table)
         html_table = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
@@ -72,9 +82,11 @@ class MiningBilbasen:
     distributions.exposed = True
 
     def distribution_of_car_brand(self, brand):
-        """ This method generates the distributions_of_car_brand page and
-            uses the jinja2 template 'distribution_template.html' to
-            generate the html. """
+        """ The method generates the distributions_of_car_brand page.
+
+        The page is generated using the jinja2 template
+        'distribution_template.html'.
+        """
         table = datamining.get_distribution_one_brand(newest_table, str(brand))
         html_table = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
@@ -89,9 +101,11 @@ class MiningBilbasen:
     distribution_of_car_brand.exposed = True
 
     def location_distributions(self, brand="all brands"):
-        """ This method generates the location_distributions page and
-            uses the jinja2 template 'location_distribution_template.html' to
-            generate the html. """
+        """ The method generates the location_distributions page.
+
+        The page is generated using the jinja2 template
+        'location_distribution_template.html'.
+        """
         distribution_all_brands = datamining. \
             get_location_distribution_all_brands(newest_table)
 
@@ -112,9 +126,11 @@ class MiningBilbasen:
     location_distributions.exposed = True
 
     def price_km_year_coherence(self, brand="all brands"):
-        """ This method generates the price_km_year_coherence page and
-            uses the jinja2 template 'price_km_year_coherence_template.html' to
-            generate the html. """
+        """ The method generates the price_km_year_coherence page.
+
+        The page is generated using the jinja2 template
+        'price_km_year_coherence_template.html' to
+        """
         graphics.create_price_km_scatter(newest_table, brand)
         graphics.create_price_year_scatter(newest_table, brand)
         template = env.get_template('price_km_year_coherence_template.html')
@@ -123,9 +139,11 @@ class MiningBilbasen:
     price_km_year_coherence.exposed = True
 
     def best_offer(self, model=None):
-        """ This method generates the best_offer page and uses the jinja2
-            template 'best_offer_template.html' to
-            generate the html. """
+        """ The method generates the best_offer page.
+
+        The page is generated using the jinja2 template
+        'best_offer_template.html'.
+        """
         template = env.get_template('best_offer_template.html')
         show = 'False'
         if not model is None:

@@ -1,0 +1,61 @@
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}|(hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.connect \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.extract\_car\_info \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.get\_date \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.get\_car\_image\_src \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.create\_car\_brand\_table \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.insert\_car\_to\_table \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.download\_data\_to\_database \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.main \textit{(function)}|hyperpage}{2}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.Car \textit{(class)}|(hyperpage}{3}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.Car \textit{(class)}!BilbasenDataMining.bilbasen.Car.\_\_getstate\_\_ \textit{(method)}|hyperpage}{3}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}!BilbasenDataMining.bilbasen.Car \textit{(class)}|)hyperpage}{4}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.bilbasen \textit{(module)}|)hyperpage}{4}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}|(hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.connect\_to\_database \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.check\_if\_table\_exist \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.delete\_table \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.query \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.commit \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.get\_newest\_table \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.get\_car\_brands \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.get\_locations \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}!BilbasenDataMining.database.create\_test\_table \textit{(function)}|hyperpage}{5}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.database \textit{(module)}|)hyperpage}{6}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}|(hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_distribution\_all\_brands \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_distribution\_one\_brand \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.create\_distribution \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_location\_distribution\_all\_brands \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_location\_distribution\_one\_brand \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.extract\_brands \textit{(function)}|hyperpage}{7}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.simplify\_model\_names \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_fastest\_cars \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_cheapest\_cars \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_most\_expensive\_cars \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.get\_most\_ecofriendly\_cars \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.analyze\_description \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}!BilbasenDataMining.datamining.calculate\_best\_offer \textit{(function)}|hyperpage}{8}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.datamining \textit{(module)}|)hyperpage}{9}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}|(hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}!BilbasenDataMining.graphics.create\_distribution\_map \textit{(function)}|hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}!BilbasenDataMining.graphics.create\_price\_km\_scatter \textit{(function)}|hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}!BilbasenDataMining.graphics.create\_price\_year\_scatter \textit{(function)}|hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}!BilbasenDataMining.graphics.create\_distribution\_plot \textit{(function)}|hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}!BilbasenDataMining.graphics.create\_pie\_plot \textit{(function)}|hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.graphics \textit{(module)}|)hyperpage}{10}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.html \textit{(module)}|(hyperpage}{11}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.html \textit{(module)}!BilbasenDataMining.html.create\_HTMLtable\_from\_series \textit{(function)}|hyperpage}{11}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.html \textit{(module)}!BilbasenDataMining.html.create\_car\_representation \textit{(function)}|hyperpage}{11}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.html \textit{(module)}|)hyperpage}{11}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}|(hyperpage}{12}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.generate\_index\_page \textit{(function)}|hyperpage}{12}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}|(hyperpage}{12}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.index \textit{(method)}|hyperpage}{12}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.distributions \textit{(method)}|hyperpage}{12}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.distribution\_of\_car\_brand \textit{(method)}|hyperpage}{13}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.location\_distributions \textit{(method)}|hyperpage}{13}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.price\_km\_year\_coherence \textit{(method)}|hyperpage}{13}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}!BilbasenDataMining.main.MiningBilbasen.best\_offer \textit{(method)}|hyperpage}{13}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}!BilbasenDataMining.main.MiningBilbasen \textit{(class)}|)hyperpage}{13}
+\indexentry{BilbasenDataMining \textit{(package)}!BilbasenDataMining.main \textit{(module)}|)hyperpage}{13}

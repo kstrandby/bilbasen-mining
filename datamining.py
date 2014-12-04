@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-""" Datamining module
-
-    This module contains all the data mining methods.
-
-"""
+""" This module contains all the data mining methods. """
 
 from __future__ import division
 from decimal import *
@@ -19,13 +15,14 @@ import database
 
 
 def get_distribution_all_brands(tablename):
-    """ Calculates a frequency distribution of all car brands
-        in the given table and returns a panda dataframe of
-        the distribution with brand-names in the first column,
-        the number a brand appears in the table in the second
-        column and the corresponding percentage in the last
-        column """
+    """ Calculate a frequency distribution of all car brands.
 
+    The method takes as input the name of a table in the database,
+    and returns a panda dataframe of the distribution with brand-names
+    in the first column, the number a brand appears in the table in
+    the second column and the corresponding percentage in the last
+    column.
+    """
     cur, con = database.connect_to_database()
     query = "select * from " + tablename
     result = pandas.read_sql_query(query, con)
@@ -42,14 +39,15 @@ def get_distribution_all_brands(tablename):
 
 
 def get_distribution_one_brand(tablename, brand):
-    """ Calculates a frequency distribution of a particular
-        car brand in the given table in terms of the different
-        models for that brand.
-        Returns a panda dataframe of the distribution with
-        model-names in the first column, the number a model
-        appears in the table in the second column, and the
-        corresponding percentage in the last column """
+    """ Calculate a frequency distribution of a particular car brand.
 
+    The method takes as input the name of a table in the database, and
+    a car brand, and calculates a frequency distribution of the models
+    for that brand.
+    Returns a panda dataframe of the distribution with model-names in
+    the first column, the number a model appears in the table in the
+    second column, and the corresponding percentage in the last column.
+    """
     # get the rows with the specified brand
     cur, con = database.connect_to_database()
     query = "SELECT * FROM " + tablename + \
@@ -69,15 +67,17 @@ def get_distribution_one_brand(tablename, brand):
 
 
 def create_distribution(series, columns, n_models):
-    """ Calculates a frequency distribution (using the nltk-package)
-        of a  given panda series object. Returns a panda dataframe
-        object containing the frequency distribution with the values
-        of the given series as the first column, the number of time a
-        certain value appear in the given series in	the second column,
-        and the corresponding percentage in the third column. The
-        DataFrame object returned will have labelled columns according
-        to the given columns list. """
+    """ Calculate a frequency distribution of a Pandas Series.
 
+    The function takes as input a panda series object and calculates
+    the frequency distribution.
+    Return a panda dataframe object containing the frequency distribution
+    with the values of the given series as the first column, the number of
+    time a certain value appear in the given series in	the second column,
+    and the corresponding percentage in the third column. The DataFrame
+    object returned will have labelled columns according to the given
+    columns list.
+    """
     # create a frequency distribution of the models
     fdist = nltk.FreqDist(series)
     # create a list from the frequency distribution with percentages included
@@ -94,10 +94,12 @@ def create_distribution(series, columns, n_models):
 
 
 def get_location_distribution_all_brands(table):
-    """ Calculates the distribution of all brands based on sale
-        locations in the specified table. A pandas Series with the
-        distribution and the locations as index is returned. """
+    """ Calculate the distribution of all brands based on sale locations.
 
+    The method calculates the distribution of all car brands in the specified
+    table. A pandas Series with the distribution and the locations as index
+    is returned.
+    """
     # get all the different locations present in the specified table
     locations = database.get_locations(table)
 
@@ -119,10 +121,12 @@ def get_location_distribution_all_brands(table):
 
 
 def get_location_distribution_one_brand(table, brand):
-    """ Calculates the distribution of the specified brand based on
-        sale locations in the specified table. A pandas Series with
-        the distribution and the locations as index is returned. """
+    """ Calculate the distribution of a car brand based on sale locations.
 
+    The method takes as input the name of a table in the database and a car
+    brand. It calculates the distribution based on locations and returns a
+    Pandas Series with the distribution and the locations as index.
+    """
     # get the rows from the table with the specified brand
     cur, con = database.connect_to_database()
     query = "SELECT * FROM " + table + " WHERE Model LIKE '%%%" \
@@ -149,10 +153,12 @@ def get_location_distribution_one_brand(table, brand):
 
 
 def extract_brands(models):
-    """ Extracts and returns the exact brand names from the given list
-        of models, i.e. from the list ["Audi A8", "Mercedes SLK"],
-        the list ["Audi", "Mercedes"] will be extracted and returned """
+    """ Extract brand names from the given list of models.
 
+    The method takes as input a list of models, e.g.
+    ["Audi A8", "Mercedes SLK"], and extracts and returns the model names,
+    e.g. ["Audi", "Mercedes"] will be extracted and returned.
+    """
     all_brands = database.get_car_brands()
     extracted_brands = []
     for car in models:
@@ -165,10 +171,12 @@ def extract_brands(models):
 
 
 def simplify_model_names(models):
-    """ Simplifies the car model names in the given list of models, i.e.
-        removes irrelevant information in the names, number of doors
-        ('4d'), size of engine ('2.0L') etc. """
+    """ Simplify car model names in a given list of models.
 
+    The method removes irrelevant information in the names,
+    number of doors ('4d'), size of engine ('2.0L') etc.
+    before returning the list.
+    """
     modified_models = []
     for m in models:
         regex = re.findall(re.compile('\w+(?:-\w+)+|\w+'), m)
@@ -181,10 +189,12 @@ def simplify_model_names(models):
 
 
 def get_fastest_cars(table):
-    """ Finds the fastest car(s) in the given table (i.e. the car(s)
-        that goes fastest from 0-100 km/t). The result is returned as
-        a pandas DataFrame containing the entire database row of that
-        car. """
+    """ Find the fastest car(s) in the given table.
+
+    The method finds the car(s) that goes fastest from 0-100 km/t).
+    The result is returned as a pandas DataFrame containing the
+    entire database row of that car.
+    """
     cur, con = database.connect_to_database()
     query = "SELECT t.* FROM " + table + " t WHERE t.kmt = \
         (select min(subt.kmt) from " + table + " subt where \
@@ -193,9 +203,12 @@ def get_fastest_cars(table):
 
 
 def get_cheapest_cars(table):
-    """ Finds the cheapest car(s) in the given table, that is not 0DKK
-        and is not a leasing car. The result is returned as a pandas
-        DataFrame containing the entire database row of that car. """
+    """ Find the cheapest car(s) in the given table.
+
+    The method finds the cheapest car in the given table, that is
+    not 0DKK and is not a leasing car. The result is returned as
+    a pandas DataFrame containing the entire database row of that car.
+    """
     cur, con = database.connect_to_database()
     query = "SELECT t.* FROM " + table + " t WHERE t.price = \
         (select min(subt.price) from " + table + " subt where \
@@ -204,9 +217,11 @@ def get_cheapest_cars(table):
 
 
 def get_most_expensive_cars(table):
-    """ Finds the most expensive car(s) in the given table. The result
-        is returned as a pandas DataFrame containing the entire database
-        row of that car. """
+    """ Find the most expensive car(s) in the given table.
+
+    The result is returned as a pandas DataFrame containing the
+    entire database row of that car.
+    """
     cur, con = database.connect_to_database()
     query = "SELECT t.* FROM " + table + " t WHERE t.price = \
         (select max(subt.price) from " + table + " subt);"
@@ -214,10 +229,12 @@ def get_most_expensive_cars(table):
 
 
 def get_most_ecofriendly_cars(table):
-    """ Finds the most eco friendly car(s) in the given table, i.e. the
-        car(s) that goes most KMs on a liter petrol. The result is
-        returned as a pandas DataFrame containing the entire database
-        row of that car. """
+    """ Find the most eco friendly car(s) in a given table.
+
+    The car(s) that goes most KMs on a liter petrol.
+    The result is returned as a pandas DataFrame containing the
+    entire database row of that car.
+    """
     cur, con = database.connect_to_database()
     query = "SELECT t.* FROM " + table + " t WHERE t.kml = \
         (select max(subt.kml) from " + table + " subt where \
@@ -226,19 +243,20 @@ def get_most_ecofriendly_cars(table):
 
 
 def analyze_description(description):
-    """ A very simple sentiment analysis function
-        Assigns a score to a sentence, based on how many positive or
-        negative words appear in that sentence. If there are no
-        negative or positive words,	the final score will be 0. If
-        there are more positive than negative words, the score will
-        be positive - how positive will depend on how many
-        positive / negative words. As it it most likely that there
-        will be many positive words compared to negative words, a
-        negative word is counted twice, as the score should reflect a
-        clear difference between a car description containing only
-        positive words, and a car description containing words like
-        "buler" and "dårligt", which clearly is a worse car. """
+    u""" A very simple sentiment analysis function.
 
+    Assigns a score to a sentence, based on how many positive or
+    negative words appear in that sentence. If there are no
+    negative or positive words,	the final score will be 0. If
+    there are more positive than negative words, the score will
+    be positive - how positive will depend on how many
+    positive / negative words. As it it most likely that there
+    will be many positive words compared to negative words, a
+    negative word is counted twice, as the score should reflect a
+    clear difference between a car description containing only
+    positive words, and a car description containing words like
+    "buler" and "dårligt", which clearly is a worse car.
+    """
     positives = [u'attraktiv', u'nysynet', u'rustfri',
                  u'undervogsbehandlet', u'velholdt', u'nye',
                  u'ny', u'perfekt', u'ok', u'ekstraudstyr',
@@ -294,19 +312,20 @@ def analyze_description(description):
 
 
 def calculate_best_offer(table, model):
-    """ This method calculates the best offer for a given car model.
-        The calculation is based on creating a linear regression model
-        of the attributes: car description, mileage and age,
-        with prices as y-values. The description of the car is analyzed
-        to get a rank value, using the modules analyze_description method.
-        Based on the linear regression model, a prediction of the prices
-        is calculated, and the differences between the predicted prices and
-        the actual prices are calculated to find the biggest difference (the
-        largest negative value), which is the best offer.
-        The returned result is a pandas DataFrame along with the
-        difference. """
+    """ Calculate the best offer for a given car model.
 
-    """ get all the offers for the specified model """
+    The calculation is based on creating a linear regression model
+    of the attributes: car description, mileage and age,
+    with prices as y-values. The description of the car is analyzed
+    to get a rank value, using the modules analyze_description method.
+    Based on the linear regression model, a prediction of the prices
+    is calculated, and the differences between the predicted prices and
+    the actual prices are calculated to find the biggest difference (the
+    largest negative value), which is the best offer.
+    The returned result is a pandas DataFrame along with the
+    difference.
+    """
+    # get all the offers for the specified model
     keywords = model.split()
     cur, con = database.connect_to_database()
     query = "SELECT * FROM " + table + " WHERE Model LIKE '%%%" \
