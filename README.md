@@ -30,22 +30,36 @@ main.py is the main python file, run this to start the webapp on http://localhos
 Running the web application:
 
 1: 	Install MySQL and the MySQLdb module:
+
    	Linux: 	sudo apt-get install mysql-server
+
 			sudo apt-get install python-mysqldb
 
 2: 	Create a database user and a database to be used for the application:
+
 	mysql>	CREATE DATABASE bilbasendb;
+
 	mysql>  CREATE USER 'user'@'localhost' IDENTIFIED BY 'bilbasen';
+
 	mysql>  USE bilbasendb;
+
 	mysql>  GRANT ALL ON bilbasendb.* TO 'user'@'localhost';
+
 	mysql> quit;
 
+
 3:  Run the bilbasen.py script to get some data into the database:
+
 	python bilbasen.py
+
 	- if you are in a hurry, specify the number of pages:
+
 	python bilbasen.py <n_pages>
 
+
 4:  Run the cherrypy application:
+
 	python main.py
+
 
 5:	Open your browser on localhost:8888 and play around! :)
