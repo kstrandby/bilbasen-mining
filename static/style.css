@@ -60,4 +60,14 @@ p {
         -moz-column-count: 2; /* Firefox */
         column-count: 2;
 }
+#best_offer_left{
+    float:left;
+    width:30%;
+
+}
+#best_offer_right{
+    float:right;
+    width:70%;
+
+}
 

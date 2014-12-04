@@ -45,19 +45,10 @@ def create_car_representation(cars, attribute):
         elif attribute == 'kml':
             rep += "</p><p>Kilometers per liter: " + str(car.Kml) \
                 + "km/l </p></div>"
-        print rep
 
         # download a picture of the car from bilbasen.dk
-        conn = bilbasen.connect()
-        conn.request("GET",  car.Link)
-        res = conn.getresponse()
-        content = res.read()
-        parsed_html = BeautifulSoup(content, from_encoding='utf8')
-        pics = parsed_html.find_all('a', {'id': 'bbVipGalleryLarge0'})
-        rep += """<div id="carpics">"""
-        for pic in pics:
-            src = pic.find('img')['data-src']
-            rep += """<img src=" """ + src + """ ">"""
-        rep += "</div>"
+        img_src = bilbasen.get_car_image_src(car.Link)
+        rep += '<div id="carpics"><img src="' + img_src + '"></div>'
+
         return rep
-    return rep
+

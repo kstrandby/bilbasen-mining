@@ -21,7 +21,25 @@
             </tbody>
         </table>
     </form>
-    {{best_offer}}
+    {% if show == 'True' %}
+        <h3>Best offer for a  {{model_search}}: </h3>
+        <div id="best_offer_left">
+            <h4>{{model}}</h4>
+            <h5>Price: {{price}} DKK <br> Predicted price: {{predicted_price}} DKK
+                <br>  <font color="green">SAVING: {{saving}} DKK</font> </h5>
+            <h5>From: {{year}}</h4>
+            <h5>Kilometers done: {{kms}} km</h5>
+            <h5>Sale location: {{location}}</h5>
+            <h5>Description: </h5>
+            <p>{{description}}</p>
+            <h5>See more  <a href="{{link}}">HERE</a> </h5>
+            
+
+        </div>
+        <div id="best_offer_right">
+            <img src={{pic}} >
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}

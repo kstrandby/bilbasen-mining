@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
 """ Datamining module
 
-    This module contains all the data mining methods. 
+    This module contains all the data mining methods.
 
 """
 
 from __future__ import division
 from decimal import *
 from django.utils.encoding import smart_str
-from scipy.cluster.vq import kmeans
-from scipy.cluster import vq
-
 import statsmodels.api as sm
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas
 import re
 import nltk
@@ -302,12 +298,13 @@ def calculate_best_offer(table, model):
         The calculation is based on creating a linear regression model
         of the attributes: car description, mileage and age,
         with prices as y-values. The description of the car is analyzed
-        to get a rank value, using the modules analyze_description method. 
+        to get a rank value, using the modules analyze_description method.
         Based on the linear regression model, a prediction of the prices
         is calculated, and the differences between the predicted prices and
         the actual prices are calculated to find the biggest difference (the
         largest negative value), which is the best offer.
-        The returned result is a pandas DataFrame along with the difference. """
+        The returned result is a pandas DataFrame along with the
+        difference. """
 
     """ get all the offers for the specified model """
     keywords = model.split()

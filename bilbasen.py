@@ -101,6 +101,19 @@ def get_date():
     return t
 
 
+def get_car_image_src(link):
+    conn = connect()
+    conn.request("GET",  link)
+    res = conn.getresponse()
+    content = res.read()
+    parsed_html = BeautifulSoup(content, from_encoding='utf8')
+    pics = parsed_html.find_all('a', {'id': 'bbVipGalleryLarge0'})
+    src = ''
+    for pic in pics:
+        src = pic.find('img')['data-src']
+    return src
+
+
 def create_car_brand_table(conn):
     """ This method crawls bilbasen.dk for a list of car brands, and
         creates and stores these brands in a table called 'Brands' in

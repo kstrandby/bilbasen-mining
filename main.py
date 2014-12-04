@@ -1,37 +1,37 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Oct 21 18:07:28 2014
+Main script
 
-@author: kristine
+This is the main script of the module and is used to run the cherrypy
+web application - run the web application by 'python main.py'
+- the web application will run on 127.0.0.1 port 8888
+
+It uses jinja2 to generate HTML from templates specified in the templates
+folder.
+It consist of a class MiningBilbasen, which contains methods for each site
+of the web application (specifying their URLs).
+Each method returns the HTML of the site, which is used by cherrypy
+to present the site.
+
 """
-from django.utils.encoding import smart_str
 import cherrypy
 import os
 import sys
-import matplotlib.pyplot as plt
 from jinja2 import Environment, PackageLoader
 
 import datamining
 import database
 import html
 import graphics
+import bilbasen
 
 env = Environment(loader=PackageLoader('main', 'templates'))
-
-
-index_cache = ""
-distribution_cache = ""
-location_distribution_cache = ""
-price_km_distribution_cache = ""
-best_offer_cache = ""
-
 newest_table = database.get_newest_table()
 
 
 def generate_index_page():
-    if not len(index_cache) == 0:
-        return index_cache
-
+    """ This method generates the index page of the web application and uses
+        the jinja2 template 'index.html' to present it. """
     expensivecars = datamining.get_most_expensive_cars(newest_table)
     cheapestcars = datamining.get_cheapest_cars(newest_table)
     fastestcars = datamining.get_fastest_cars(newest_table)
@@ -43,11 +43,10 @@ def generate_index_page():
     ecofriendly = html.create_car_representation(mostecofriendlycars, 'kml')
 
     template = env.get_template('index.html')
-    global index_cache
-    index_cache = template.render(
+    html_content = template.render(
         expensive_car=expensive, cheapest_car=cheap,
         fastest_car=fast, ecofriendly_car=ecofriendly)
-    return index_cache
+    return html_content
 
 
 class MiningBilbasen:
@@ -57,31 +56,31 @@ class MiningBilbasen:
     index.exposed = True
 
     def distributions(self):
-        if not len(distribution_cache) == 0:
-            return distribution_cache
+        """ This method generates the distributions page and uses
+            the jinja2 template 'distribution_template.html' to
+            generate the html. """
         table = datamining.get_distribution_all_brands(newest_table)
         html_table = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
 
-        graphics.create_distribution_plot(table, 20, 'img/brand_distribution.png')
+        graphics.create_distribution_plot(
+            table, 20, 'img/brand_distribution.png')
         template = env.get_template('distribution_template.html')
-        global distribution_cache
-        distribution_cache = template.render(
+        html_content = template.render(
             title='Distribution of all car brands', htmltable=html_table)
-        return distribution_cache
+        return html_content
     distributions.exposed = True
 
     def distribution_of_car_brand(self, brand):
+        """ This method generates the distributions_of_car_brand page and
+            uses the jinja2 template 'distribution_template.html' to
+            generate the html. """
         table = datamining.get_distribution_one_brand(newest_table, str(brand))
         html_table = html.create_HTMLtable_from_series(
             table, ['car', 'number', 'percentage'])
 
-        sliced_table = table[:20]
-        sliced_table.plot(kind='barh', x=0)
-        plt.tight_layout()
-        plt.savefig('img/brand_distribution.png', transparent=True)
-        plt.clf()
-
+        graphics.create_distribution_plot(
+            table, 20, 'img/brand_distribution.png')
         template = env.get_template('distribution_template.html')
         title = 'Distribution of ' + brand + ' models'
         html_content = template.render(
@@ -90,28 +89,21 @@ class MiningBilbasen:
     distribution_of_car_brand.exposed = True
 
     def location_distributions(self, brand="all brands"):
+        """ This method generates the location_distributions page and
+            uses the jinja2 template 'location_distribution_template.html' to
+            generate the html. """
         distribution_all_brands = datamining. \
             get_location_distribution_all_brands(newest_table)
 
         if brand == 'all brands':
-            # create pie chart of the distribution
-            distribution_all_brands.plot(kind='pie')
-            plt.savefig('img/location_distribution.png', transparent=True)
-            plt.clf()
-
-            # create map
+            graphics.create_pie_plot(
+                distribution_all_brands, 'img/location_distribution.png')
             graphics.create_distribution_map(distribution_all_brands)
         else:
-
             distribution = datamining.get_location_distribution_one_brand(
                 newest_table, brand)
-
-            # create pie chart of the distribution
-            distribution.plot(kind='pie')
-            plt.savefig('img/location_distribution.png', transparent=True)
-            plt.clf()
-
-            # create map
+            graphics.create_pie_plot(
+                distribution, 'img/location_distribution.png')
             graphics.create_distribution_map(distribution)
 
         template = env.get_template('location_distribution_template.html')
@@ -120,23 +112,45 @@ class MiningBilbasen:
     location_distributions.exposed = True
 
     def price_km_year_coherence(self, brand="all brands"):
-        graphics.create_price_km_cluster(newest_table, brand)
-        graphics.create_price_year_cluster(newest_table, brand)
+        """ This method generates the price_km_year_coherence page and
+            uses the jinja2 template 'price_km_year_coherence_template.html' to
+            generate the html. """
+        graphics.create_price_km_scatter(newest_table, brand)
+        graphics.create_price_year_scatter(newest_table, brand)
         template = env.get_template('price_km_year_coherence_template.html')
         html_content = template.render(brand=brand)
         return html_content
     price_km_year_coherence.exposed = True
 
     def best_offer(self, model=None):
+        """ This method generates the best_offer page and uses the jinja2
+            template 'best_offer_template.html' to
+            generate the html. """
         template = env.get_template('best_offer_template.html')
-
+        show = 'False'
         if not model is None:
-            car, saving = datamining.calculate_best_offer(newest_table, model)
+            best_offer, saving = datamining.calculate_best_offer(
+                newest_table, model)
+            show = 'True'
+            pic_src = bilbasen.get_car_image_src(best_offer.Link)
+            html_content = template.render(
+                best_offer=best_offer, show=show, model_search=model,
+                model=best_offer.Model, price=best_offer.Price,
+                predicted_price=int(best_offer.Price-saving),
+                saving=int(saving), description=best_offer.Description,
+                year=best_offer.Year, kms=best_offer.Kms,
+                location=best_offer.Location,
+                link=('http://www.bilbasen.dk' + best_offer.Link), pic=pic_src)
 
-            best_offer = str(car)
         else:
             best_offer = ''
-        html_content = template.render(best_offer=best_offer)
+            show = False
+            html_content = template.render(
+                best_offer=None, show=show, model_search=None,
+                model=None, price=None, predicted_price=None,
+                saving=None, description=None, year=None,
+                kms=None, location=None, link=None, pic=None)
+
         return html_content
     best_offer.exposed = True
 

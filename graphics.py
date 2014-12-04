@@ -182,11 +182,21 @@ def create_price_year_scatter(table, brand):
 
 def create_distribution_plot(table, n_bars, plot_name):
     """ This method creates a bar plot showing the distribution of the
-        data in the table, which has to be a pandas DataFrame.
+        data in the table, which has to be a pandas DataFrame, and saves
+        it with the given name.
         The plot will only include the specified number of bars (n_bars),
         as otherwise it can become very crowded. """
     sliced_table = table[:n_bars]
     sliced_table.plot(kind='barh', x=0)
+    plt.tight_layout()
+    plt.savefig(plot_name, transparent=True)
+    plt.clf()
+
+
+def create_pie_plot(distribution, plot_name):
+    """ This method creates a pie chart of a given distribution, provided
+        as a pandas DataFrame, and saves it with the given name. """
+    distribution.plot(kind='pie')
     plt.tight_layout()
     plt.savefig(plot_name, transparent=True)
     plt.clf()
