@@ -10,7 +10,7 @@ import pandas
 import re
 import nltk
 import itertools
-
+import graphics
 import database
 
 
@@ -30,8 +30,6 @@ def get_distribution_all_brands(tablename):
     # get the model column and the number of models
     models = result.Model
     n_models = len(models)
-    if n_models == 0:
-        return []
 
     models = extract_brands(models)
     columns = ['Brand', 'Number', 'Percentage']
@@ -129,9 +127,6 @@ def get_location_distribution_one_brand(table, brand):
     """
     # get the rows from the table with the specified brand
     cur, con = database.connect_to_database()
-    query = "SELECT * FROM " + table + " WHERE Model LIKE '%%%" \
-        + brand + "%%%';"
-    result = pandas.read_sql_query(query, con)
 
     # get all the different locations present in the specified table
     locations = database.get_locations(table)
@@ -349,11 +344,13 @@ def calculate_best_offer(table, model):
     columns = ['rank', 'kms', 'year', 'price']
     dat = pandas.DataFrame.from_records(data, columns=columns)
 
+    # create regression plot
+    graphics.create_3D_regression_plot(dat, model)
     """ y (price) will be the response, and X (rank, kms, year)
     will be the predictors """
     X = dat.iloc[:, [0, 1, 2]]
     y = dat.iloc[:, [3]]
-
+    
     """ add a constant term to the predictors to fit the intercept of
     the linear model """
     X = sm.add_constant(X)
@@ -363,12 +360,12 @@ def calculate_best_offer(table, model):
     reg_model = sm.OLS(y, X).fit()
     predictions = reg_model.predict()
 
-    """ create an array of the differences between the predicted values
+    """ create a numpy array of the differences between the predicted values
     and the actual values for the prices and find the minimum - this is
     the best offer """
     differences = y.price.values - predictions
     smallest = np.amin(differences, axis=0)
     index = differences.argmin(axis=0)
     best_offer = result.loc[index]
-    return best_offer, smallest
 
+    return best_offer, smallest

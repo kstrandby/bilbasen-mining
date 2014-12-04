@@ -7,6 +7,9 @@ to visualize the data and results from the data mining methods.
 
 from __future__ import division
 from mpl_toolkits.basemap import Basemap
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+import numpy as np
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import pandas
 import database
@@ -210,4 +213,58 @@ def create_pie_plot(distribution, plot_name):
     distribution.plot(kind='pie')
     plt.tight_layout()
     plt.savefig(plot_name, transparent=True)
+    plt.clf()
+
+
+def create_3D_regression_plot(dataframe, brand):
+    """ The method creates a 3D regression plot.
+
+    The method expects a pandas Dataframe as input, with kms as second
+    column, year as third column and price as fourth column.
+    The method creates the 3D plot and saves it.
+    """
+    X = dataframe.iloc[:,[1,2]]
+    y = dataframe.iloc[:, [3]]
+
+    X = sm.add_constant(X)
+    est = sm.OLS(y, X).fit()
+
+    x1, x2 = np.meshgrid(np.linspace(X.kms.min(), X.kms.max(), 100), 
+                       np.linspace(X.year.min(), X.year.max(), 100))
+    Z = est.params[0] + est.params[1] * x1 + est.params[2] * x2
+
+    # create the axis of matplotlib
+    fig = plt.figure(figsize=(12, 8))
+    ax = Axes3D(fig, azim=-115, elev=15)
+
+    # plot the hyperplane
+    surf = ax.plot_surface(
+        x1, x2, Z, cmap=plt.cm.RdBu_r, alpha=0.6, linewidth=0)
+
+    """ plot the data points - points over the hyperplane are red,
+    points below are green """
+    resid = est.predict(X)
+    ax.scatter(X[resid >= 0].kms, X[resid >= 0].year, y[resid >= 0], color='black', alpha=1.0, facecolor='red')
+    ax.scatter(X[resid < 0].kms, X[resid < 0].year, y[resid < 0], color='black', alpha=1.0, facecolor='green')
+    
+    # calculate the ranges of the axis
+    min_x_value = min(X.kms.values)
+    max_x_value = max(X.kms.values)
+
+    min_y_value = min(X.year.values)
+    max_y_value = max(X.year.values)
+    
+    min_z_value = min(y.price.values)
+    max_z_value = max(y.price.values)
+
+    # set axis labels
+    ax.set_xlabel('Kilometers')
+    ax.set_ylabel('Year')
+    ax.set_zlabel('Price')
+    ax.set_xlim(min_x_value, max_x_value)
+    ax.set_ylim(min_y_value, max_y_value)
+    ax.set_zlim(min_z_value, max_z_value)
+    title = 'Regression plot for ' + brand
+    plt.title(title)
+    plt.savefig('img/regression.png', transparent=True)
     plt.clf()
