@@ -87,17 +87,22 @@ class MiningBilbasen:
         The page is generated using the jinja2 template
         'distribution_template.html'.
         """
-        table = datamining.get_distribution_one_brand(newest_table, str(brand))
-        html_table = html.create_HTMLtable_from_series(
-            table, ['car', 'number', 'percentage'])
-
-        graphics.create_distribution_plot(
-            table, 20, 'img/brand_distribution.png')
         template = env.get_template('distribution_template.html')
-        title = 'Distribution of ' + brand + ' models'
-        html_content = template.render(
-            title=title, htmltable=html_table)
-        return html_content
+        if database.car_exists(brand):
+            table = datamining.get_distribution_one_brand(newest_table, str(brand))
+            html_table = html.create_HTMLtable_from_series(
+                table, ['car', 'number', 'percentage'])
+
+            graphics.create_distribution_plot(
+                table, 20, 'img/brand_distribution.png')
+            
+            title = 'Distribution of ' + brand + ' models'
+            html_content = template.render(
+                title=title, htmltable=html_table)
+            return html_content
+        else:
+            return 'Error - car brand ' + brand + ' does not exist'
+
     distribution_of_car_brand.exposed = True
 
     def location_distributions(self, brand="all brands"):
@@ -113,13 +118,14 @@ class MiningBilbasen:
             graphics.create_pie_plot(
                 distribution_all_brands, 'img/location_distribution.png')
             graphics.create_distribution_map(distribution_all_brands)
-        else:
+        elif database.car_exists(brand):
             distribution = datamining.get_location_distribution_one_brand(
                 newest_table, brand)
             graphics.create_pie_plot(
                 distribution, 'img/location_distribution.png')
             graphics.create_distribution_map(distribution)
-
+        else:
+            return 'Error - car brand ' + brand + ' does not exist'
         template = env.get_template('location_distribution_template.html')
         html_content = template.render(brand=brand)
         return html_content
@@ -149,6 +155,8 @@ class MiningBilbasen:
         if not model is None:
             best_offer, saving = datamining.calculate_best_offer(
                 newest_table, model)
+            if best_offer.empty:
+                return 'Error! Car model ' + model + ' does not exist'
             show = 'True'
             pic_src = bilbasen.get_car_image_src(best_offer.Link)
             html_content = template.render(

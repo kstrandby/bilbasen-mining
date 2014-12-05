@@ -68,6 +68,13 @@ class TestDatabase(unittest.TestCase):
             columns=['location'])
         pandas.util.testing.assert_frame_equal(expected, result)
 
+    def test_car_exists(self):
+        """ Test the car_exists function of the database module. """
+        result = database.car_exists('Audi')
+        self.assertTrue(result)
+        result = database.car_exists('rubbish')
+        self.assertFalse(result)
+
 
 def create_test_table():
     """ Create a test table to have specific data to test on. """

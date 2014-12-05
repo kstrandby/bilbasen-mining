@@ -333,6 +333,8 @@ def calculate_best_offer(table, model):
         query += ";"
 
     result = pandas.read_sql_query(query, con)
+    if len(result) == 0:
+        return pandas.Series([]), None
 
     """ create data array of [description_score, price, kms, year] """
     data = []

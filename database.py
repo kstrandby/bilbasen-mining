@@ -22,6 +22,14 @@ def connect_to_database():
     cur.execute("SET character_set_client = utf8")
     return cur, con
 
+def car_exists(brand):
+    """ Check that a given brand exist in the table of brands. """
+    brands = get_car_brands()
+    if brand in brands.values:
+        return True
+    else:
+        return False
+
 
 def check_if_table_exist(cursor, table):
     """ Check if a specified table exist in the database. """
